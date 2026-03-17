@@ -10,7 +10,7 @@
 
 ## MPLS L2VPN Configuration
 
-#### Far End
+#### 1. Far End
 * Service Instance
 ```
 interface GigabitEthernet2
@@ -29,7 +29,7 @@ show bridge-domain [L2VPN_ID]
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-#### Near End
+#### 2. Near End
 * Service Instance
 ```
 interface GigabitEthernet2
@@ -50,7 +50,7 @@ show mac-address-table dynamic vlan [VLAN_ID]
 
 ## VPLS Configuration
 
-#### Far End
+#### 1. Far End
 * VPLS Configuration
 ```
 l2 vfi VFI-444 manual
@@ -78,7 +78,7 @@ show vfi [VPLS-ID]
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-#### Near End
+#### 2. Near End
 * VPLS Configuration
 ```
 l2 vfi VFI-444 manual
@@ -142,7 +142,7 @@ show mac-address-table dynamic vlan [VLAN_ID]
 
 ## Switch Configuration (IOS-L)
 
-#### VLAN Configuration
+#### 1. VLAN Configuration
 * VLAN
 ```
 vlan [VLAN_ID]
@@ -163,7 +163,7 @@ show running interface [vlan]
 show vlan
 ```
 
-#### Port Trunk
+#### 2. Port Trunk
 * Port Trunk
 ```
 interface GigabitEthernet [PORT_TRUNK]
@@ -196,7 +196,7 @@ show vlan
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-#### Port Access
+#### 3. Port Access
 * Port Access
 ```
 interface GigabitEthernet [PORT_ACCESS]
@@ -227,7 +227,7 @@ show vlan
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-#### Static Routing
+#### 4. Static Routing
 * Static Route
 ```
 router(config)# ip route 0.0.0.0 0.0.0.0 [GATEWAY]
