@@ -7,6 +7,88 @@
 ## Routing Configuration
 
 ## MPLS (Multi Protocol Labeling Switching)
+#### 1. MPLS
+* MPLS in OSPF 
+```
+router ospf [OSPF-ID]
+router-id [IP_LOOPBACK]
+mpls ldp sync
+mpls traffic-eng router-id Loopback0
+mpls traffic-eng area 262
+```
+
+* MPLS in Port Interface
+```
+interface [Port]
+mpls ip
+mpls label protocol ldp
+mpls traffic-eng tunnels
+```
+
+* MPLS Configuration Interface
+```
+interface GigabitEthernet1
+no shutdown
+description [DESCRIPTION]
+mtu [1500-9200]
+load-interval 30
+negotiation auto
+cdp enable
+ip address  [IP_ADDRESS] [NETMASK]
+ip ospf authentication message-digest
+ip ospf message-digest-key 1 md5 [PASSWORD]
+ip ospf network point-to-point
+ip ospf dead-interval 15
+ip ospf hello-interval 5
+ip ospf mtu-ignore
+ip ospf cost [1-65000]
+mpls ip
+mpls label protocol ldp
+mpls traffic-eng tunnels
+ip rsvp bandwidth
+```
+
+* Verification
+```
+show mpls interface
+show mpls ldp session
+show mpls ldp neighbor
+```
+
+#### 2. MPLS LDP (Link Distribution Protocol)
+```
+mpls label protocol ldp
+mpls ldp graceful-restart
+no mpls ldp advertise-labels
+no mpls ip propagate-ttl 
+mpls traffic-eng tunnels
+xconnect logging pseudowire status
+xconnect logging redundancy
+mpls ldp neighbor [IP_LOOPBACK_NEIGHBOR] password [PASSWORD]
+mpls ldp neighbor [IP_LOOPBACK_NEIGHBOR] password [PASSWORD]
+```
+
+* Verification
+```
+show mpls interface
+show mpls ldp session
+show mpls ldp neighbor
+```
+
+#### 3. RSVP (Resource Reservation Protocol)
+```
+interface [Port]
+ip rsvp bandwidth
+```
+
+#### 4. Access Control List LDP
+```
+ip access-list standard ACL-MPLS-LDP
+10 permit [IP_HOST_ALLOW]
+20 permit [IP_HOST_ALLOW]
+30 permit [IP_HOST_ALLOW]
+mpls ldp advertise-labels for ACL-MPLS-LDP
+```
 
 ## MPLS L2VPN Configuration
 #### 1. Far End
