@@ -3,6 +3,98 @@
 ## Information
 
 ## Basic Configuration
+#### 1. Hostname
+```
+hostname [HOSTNAME]
+```
+
+#### 2. Password Enable
+```
+enable secret [PASSWORD]
+```
+
+#### 3. Password Encryption
+```
+service password-encryption
+```
+
+#### 4. Username and Password
+```
+username [USERNAME] privilege 15 secret [PASSWORD]
+```
+
+#### 5. Privilege Login
+* 0 - 4
+```
+line vty 0 4
+login local
+transport input telnet ssh
+transport output telnet ssh
+```
+
+* 5 - 15
+```
+line vty 5 15
+transport input none
+transport output none
+```
+
+* Console
+```
+line console
+login local
+transport input telnet ssh
+transport output telnet ssh
+```
+
+#### 6. Time Clock
+```
+clock timezone WIB 7 0
+```
+
+#### 7. Spanning-Tree
+```
+spanning-tree mode mst
+spanning-tree loopguard default
+spanning-tree logging
+spanning-tree extend system-id
+spanning-tree mst 0 priority 4096
+```
+
+#### 8. FTP (File Transfer Protocol)
+```
+ip ftp source-interface Loopback0
+ip ftp username [USERNAME]
+ip ftp password 7 [PASSWORD]
+```
+
+#### 9. UDLD ((Unidirectional Link Detection)
+```
+udld enable
+```
+
+#### 10. CDP (Cisco Discovery Protocol)
+```
+cdp run
+interface Gi1
+cdp enable
+```
+
+#### 11. SNMP (Simple Network Management Protocol)
+```
+snmp-server community [SNMP-COMMUNITY]
+snmp-server trap-source Loopback0
+snmp-server location [SITE-ID]
+snmp-server contact [EMAIL@EMAIL.COM]
+snmp-server host [IP_SERVER_SNMP]
+```
+
+#### 12. NTP (Network Time Protocol0
+```
+ntp source Loopback0
+ntp server [IP_SERVER_NTP]
+ntp server [IP_SERVER_NTP]
+```
 
 ## OSPF Routing Configuration
 #### Single Area OSPF (Internal Router)
