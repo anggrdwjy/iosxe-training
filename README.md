@@ -10,6 +10,44 @@
 
 ## MPLS L2VPN Configuration
 
+#### Far End
+* Service Instance
+```
+interface GigabitEthernet2
+service instance 666 ethernet
+description MPLS_L2VPN
+encapsulation dot1q 666
+rewrite ingress tag pop 1 symmetric
+bridge-domain 666
+xconnect 11.11.11.11 666 encapsulation mpls
+```
+
+* Verification
+```
+show mpls l2transport vc [L2VPN-ID]
+show bridge-domain [L2VPN_ID]
+show mac-address-table dynamic vlan [VLAN_ID]
+```
+
+#### Near End
+* Service Instance
+```
+interface GigabitEthernet2
+service instance 666 ethernet
+description MPLS_L2VPN
+encapsulation dot1q 666
+rewrite ingress tag pop 1 symmetric
+bridge-domain 666
+xconnect 12.12.12.12 666 encapsulation mpls
+```
+
+* Verification
+```
+show mpls l2transport vc [L2VPN-ID]
+show bridge-domain [L2VPN_ID]
+show mac-address-table dynamic vlan [VLAN_ID]
+```
+
 ## VPLS Configuration
 
 #### Far End
