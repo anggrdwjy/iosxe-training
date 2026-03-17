@@ -9,7 +9,6 @@
 ## MPLS (Multi Protocol Labeling Switching)
 
 ## MPLS L2VPN Configuration
-
 #### 1. Far End
 * Service Instance
 ```
@@ -49,7 +48,6 @@ show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
 ## VPLS Configuration
-
 #### 1. Far End
 * VPLS Configuration
 ```
@@ -107,11 +105,154 @@ show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
 ## Interior-BGP Route Reflector
+#### 1. BGP Route Reflector (Master)
+* BGP RR Configuration
+```
+router bgp [AS_NUMBER]
+bgp router-id [IP_LOOPBACK_RR]
+bgp log-neighbor-changes
+bgp graceful-restart
+no bgp default ipv4-unicast
+neighbor RR-CLIENT peer-group
+neighbor RR-CLIENT remote-as [AS_NUMBER]
+neighbor RR-CLIENT password [PASSWORD]
+neighbor RR-CLIENT update-source Loopback0
+neighbor [IP_RR_CLIENT_A] peer-group RR-CLIENT
+neighbor [IP_RR_CLIENT_B] peer-group RR-CLIENT
+neighbor [IP_RR_CLIENT_B] peer-group RR-CLIENT
+!
+address-family vpnv4
+bgp slow-peer detection
+neighbor RR-CLIENT send-community both
+neighbor RR-CLIENT route-reflector-client
+neighbor RR-CLIENT slow-peer split-update-group dynamic
+neighbor [IP_RR_CLIENT_A] activate
+neighbor [IP_RR_CLIENT_B] activate
+neighbor [IP_RR_CLIENT_C] activate
+exit-address-family
+```
+
+* Verification
+```
+show bgp summary
+```
+
+#### 2. BGP Router Client
+* BGP Router Client
+```
+router bgp [AS_NUMBER]
+bgp router-id [IP_LOOPBACK]
+bgp log-neighbor-changes
+bgp graceful-restart
+no bgp default ipv4-unicast
+neighbor [IP_ROUTE_REFLECTOR] remote-as [AS_NUMBER]
+neighbor [IP_ROUTE_REFLECTOR] description [TO_ROUTE_REFLECTOR]
+neighbor [IP_ROUTE_REFLECTOR] password [PASSWORD]
+neighbor [IP_ROUTE_REFLECTOR] update-source Loopback0
+!
+address-family vpnv4
+neighbor [IP_ROUTE_REFLECTOR] activate
+neighbor [IP_ROUTE_REFLECTOR] send-community both
+exit-address-family
+```
+
+* Verification
+```
+show bgp summary
+```
 
 ## MPLS L3VPN Configuration
+#### 1. Far End
+* VPN Instance
+```
+ip vrf WAN-111
+rd 65000:10100
+route-target export 65000:10100
+route-target import 65000:10100
+```
+
+* Multi Protocol - BGP Configuration
+```
+router bgp 65000
+address-family ipv4 vrf WAN-111
+redistribute connected
+redistribute static
+exit-address-family
+```
+
+* Bridge Domain Interface
+```
+interface BDI111
+description WAN-111
+ip vrf forwarding WAN-111
+ip address 10.200.0.1 255.255.255.252
+ip address 10.200.1.1 255.255.255.252 secondary
+no shutdown
+```
+
+* Service Instance
+```
+interface GigabitEthernet2
+service instance 111 ethernet
+description MPLS_L3VPN
+encapsulation dot1q 111
+rewrite ingress tag pop 1 symmetric
+bridge-domain 111
+```
+
+* Verification
+```
+show bgp vpnv4 unicast vrf [VRF_LABEL]
+ping vrf [VRF_LABEL] [IP_NEIGHBOR]
+traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
+```
+
+#### 2. Near End
+* VPN Instance
+```
+ip vrf WAN-111
+rd 65000:10100
+route-target export 65000:10100
+route-target import 65000:10100
+```
+
+* Multi Protocol - BGP Configuration
+```
+router bgp 65000
+address-family ipv4 vrf WAN-111
+redistribute connected
+redistribute static
+exit-address-family
+```
+
+* Bridge Domain Interface
+```
+interface BDI111
+description WAN-111
+ip vrf forwarding WAN-111
+ip address 10.100.0.1 255.255.255.252
+ip address 10.100.1.1 255.255.255.252 secondary
+no shutdown
+```
+
+* Service Instance
+```
+interface GigabitEthernet2
+service instance 111 ethernet
+description MPLS_L3VPN
+encapsulation dot1q 111
+rewrite ingress tag pop 1 symmetric
+bridge-domain 111
+```
+
+* Verification
+```
+show bgp vpnv4 unicast vrf [VRF_LABEL]
+ping vrf [VRF_LABEL] [IP_NEIGHBOR]
+traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
+```
 
 ## LACP (Link Aggregation Control Protocol)
-
 * LACP Configuration
 ```
 interface Port-channel1
@@ -141,7 +282,6 @@ show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
 ## Switch Configuration (IOS-L)
-
 #### 1. VLAN Configuration
 * VLAN
 ```
