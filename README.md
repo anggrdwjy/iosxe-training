@@ -4,7 +4,49 @@
 
 ## Basic Configuration
 
-## Routing Configuration
+## OSPF Routing Configuration
+#### Single Area OSPF (Internal Router)
+* Single Area Configuration
+```
+router ospf [OSPF-ID]
+router-id [IP_LOOPBACK]
+network [IP_LOOPBACK] 0.0.0.0 area [OSPF_AREA]
+network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA]
+```
+
+* Verification
+```
+show ip ospf interface
+show ip ospf interface brief
+show ip ospf interface neighbor 
+```
+
+#### Multi Area OSPF (Area Border Router)
+* Multi Area Configuration
+```
+router ospf [OSPF-ID]
+router-id [IP_LOOPBACK]
+network [IP_LOOPBACK] 0.0.0.0 area [OSPF_AREA_A]
+network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_A]
+network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_B]
+network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_C]
+```
+
+* Verification
+```
+show ip ospf interface
+show ip ospf interface brief
+show ip ospf interface neighbor 
+```
+
+#### OSPF Advance Configuration
+```
+router ospf [OSPF-ID]
+nsf cisco
+passive-interface default <- Passive Port
+no passive-interface GigabitEthernet1 <- Active Port
+no passive-interface GigabitEthernet2 <- Active Port
+```
 
 ## MPLS (Multi Protocol Labeling Switching)
 #### 1. MPLS
@@ -25,7 +67,7 @@ mpls label protocol ldp
 mpls traffic-eng tunnels
 ```
 
-* MPLS Configuration Interface
+* MPLS Configuration Interface Example
 ```
 interface GigabitEthernet1
 no shutdown
