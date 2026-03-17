@@ -12,6 +12,62 @@
 
 ## VPLS Configuration
 
+#### Far End
+* VPLS Configuration
+```
+l2 vfi VFI-444 manual
+vpn id 444
+bridge-domain 444
+mtu 1900
+neighbor 21.21.21.21 encapsulation mpls
+```
+
+* Service Instance
+```
+interface GigabitEthernet2
+service instance 444 ethernet
+description VPLS_SERVICE
+encapsulation dot1q 444
+rewrite ingress tag pop 1 symmetric
+bridge-domain 444
+```
+
+* Verification
+```
+show mpls l2transport vc [VPLS-ID]
+show bridge-domain [VPLS_ID]
+show vfi [VPLS-ID]
+show mac-address-table dynamic vlan [VLAN_ID]
+```
+
+#### Near End
+* VPLS Configuration
+```
+l2 vfi VFI-444 manual
+vpn id 444
+bridge-domain 444
+mtu 1900
+neighbor 12.12.12.12 encapsulation mpls
+```
+
+* Service Instance
+```
+interface GigabitEthernet2
+service instance 444 ethernet
+description VPLS_SERVICE
+encapsulation dot1q 444
+rewrite ingress tag pop 1 symmetric
+bridge-domain 444
+```
+
+* Verification
+```
+show mpls l2transport vc [VPLS-ID]
+show bridge-domain [VPLS_ID]
+show vfi [VPLS-ID]
+show mac-address-table dynamic vlan [VLAN_ID]
+```
+
 ## Interior-BGP Route Reflector
 
 ## MPLS L3VPN Configuration
@@ -38,7 +94,13 @@ switchport mode trunk
 channel-group 1 mode active
 ```
 
-## Switch Configuration
+* Verification
+```
+show etherchannel summary
+show mac-address-table dynamic vlan [VLAN_ID]
+```
+
+## Switch Configuration (IOS-L)
 
 #### VLAN Configuration
 * VLAN
@@ -81,16 +143,6 @@ spanning-tree bpdufilter enable
 ip dhcp snooping trust -> Optional
 ```
 
-* Spanning-Tree
-```
-spanning-tree bpdufilter enable
-```
-
-* DHCP Snooping
-```
-ip dhcp snooping trust
-```
-
 #### Port Access
 * Port Access
 ```
@@ -113,16 +165,6 @@ negotiation auto
 udld port disable
 spanning-tree bpdufilter enable
 ip dhcp snooping trust -> Optional
-```
-
-* Spanning-Tree
-```
-spanning-tree bpdufilter enable
-```
-
-* DHCP Snooping
-```
-ip dhcp snooping trust
 ```
 
 #### Static Routing
