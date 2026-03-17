@@ -6,6 +6,32 @@
 
 ## OSPF Routing Configuration
 #### Single Area OSPF (Internal Router)
+* Loopback Interface
+```
+interface Loopback0
+ip address [IP_ADDRESS] [NETMASK]
+ip ospf network point-to-point
+```
+
+* Interface
+```
+interface GigabitEthernet1
+no shutdown
+description [DESCRIPTION]
+mtu [1500-9200]
+load-interval 30
+negotiation auto
+cdp enable
+ip address  [IP_ADDRESS] [NETMASK]
+ip ospf authentication message-digest
+ip ospf message-digest-key 1 md5 [PASSWORD]
+ip ospf network point-to-point
+ip ospf dead-interval 15
+ip ospf hello-interval 5
+ip ospf mtu-ignore
+ip ospf cost [1-65000]
+```
+
 * Single Area Configuration
 ```
 router ospf [OSPF-ID]
@@ -67,7 +93,7 @@ mpls label protocol ldp
 mpls traffic-eng tunnels
 ```
 
-* MPLS Configuration Interface Example
+* MPLS Configuration Advanced Example
 ```
 interface GigabitEthernet1
 no shutdown
