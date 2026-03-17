@@ -96,6 +96,8 @@ channel-group 1 mode active
 
 * Verification
 ```
+show running interface [PORT]
+show running interface [Port-Channel]
 show etherchannel summary
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
@@ -115,6 +117,12 @@ interface vlan [VLAN_ID]
 description [SERVICE_NAME]
 ip address [IP_ADDRESS] [NETMASK]
 no shutdown
+```
+
+* Verification
+```
+show running interface [vlan]
+show vlan
 ```
 
 #### Port Trunk
@@ -143,6 +151,13 @@ spanning-tree bpdufilter enable
 ip dhcp snooping trust -> Optional
 ```
 
+* Verification
+```
+show running interface [PORT]
+show vlan
+show mac-address-table dynamic vlan [VLAN_ID]
+```
+
 #### Port Access
 * Port Access
 ```
@@ -167,10 +182,23 @@ spanning-tree bpdufilter enable
 ip dhcp snooping trust -> Optional
 ```
 
+* Verification
+```
+show running interface [PORT]
+show vlan
+show mac-address-table dynamic vlan [VLAN_ID]
+```
+
 #### Static Routing
+* Static Route
 ```
 router(config)# ip route 0.0.0.0 0.0.0.0 [GATEWAY]
 router(config)# ip route [NETWORK_NEIGHBOR] [PREFIX] [GATEWAY]
+```
+
+* Verification
+```
+show route table
 ```
 
 ## Support
