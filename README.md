@@ -1,7 +1,7 @@
 ## Overview
 
 <p align="center">
-<img src="img/iosxe.png">
+<img src="img/iosxed.png">
 </p>
 
 ## Information
