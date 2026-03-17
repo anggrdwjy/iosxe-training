@@ -402,6 +402,43 @@ ping vrf [VRF_LABEL] [IP_NEIGHBOR]
 traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
 ```
 
+## SVI (Switch Virtual Instance)
+* Service Instance
+```
+interface GigabitEthernet2
+no shutdown
+description Trunk to Service
+mtu 1900
+no ip address
+load-interval 30
+negotiation auto
+spanning-tree bpdufilter enable
+service instance 111 ethernet
+description MPLS_L3VPN
+encapsulation dot1q 111
+rewrite ingress tag pop 1 symmetric
+bridge-domain 111
+```
+
+* VLAN Dot1.Q
+```
+interface GigabitEthernet2.111
+description Trunk to Service
+mtu 1900
+no ip address
+load-interval 30
+negotiation auto
+spanning-tree bpdufilter enable
+xconnect 11.11.11.11 666 encapsulation mpls
+```
+
+* Verfication
+```
+show running interface [PORT]
+show mac-address-table dynamic vlan [ID]
+show bridge-domain [ID]
+```
+
 ## LACP (Link Aggregation Control Protocol)
 * LACP Configuration
 ```
