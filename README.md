@@ -97,7 +97,7 @@ ntp server [IP_SERVER_NTP]
 ```
 
 ## OSPF Routing Configuration
-#### Single Area OSPF (Internal Router)
+#### 1. Single Area OSPF (Internal Router)
 * Loopback Interface
 ```
 interface Loopback0
@@ -139,7 +139,7 @@ show ip ospf interface brief
 show ip ospf interface neighbor 
 ```
 
-#### Multi Area OSPF (Area Border Router)
+#### 2. Multi Area OSPF (Area Border Router)
 * Multi Area Configuration
 ```
 router ospf [OSPF-ID]
@@ -157,7 +157,7 @@ show ip ospf interface brief
 show ip ospf interface neighbor 
 ```
 
-#### OSPF Advance Configuration
+#### 3. OSPF Advance Configuration
 ```
 router ospf [OSPF-ID]
 nsf cisco
