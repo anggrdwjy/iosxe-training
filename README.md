@@ -100,6 +100,23 @@ ntp server [IP_SERVER_NTP]
 ntp server [IP_SERVER_NTP]
 ```
 
+#### 13. Save Configuration
+* Copy Running Configuration
+```
+copy running startup-config
+```
+
+* Save Configuration
+```
+write
+```
+
+#### 14. Show Configuration
+```
+show running
+```
+
+
 ## OSPF Routing Configuration
 #### 1. Single Area OSPF (Internal Router)
 * Loopback Interface
@@ -661,6 +678,45 @@ router(config)# ip route [NETWORK_NEIGHBOR] [PREFIX] [GATEWAY]
 ```
 show route table
 ```
+
+## Command Refrences
+
+| Command | Description |
+| ---- | ----- |
+| show running | show configuration in router |
+| show running interface [PORT] | show configuration interface |
+| show running \| section router ospf | show configuration ospf |
+| show running \| section router bgp | show configuration bgp |
+| show running interface [PORT] | show configuration interface |
+| show running interface [PORT_TRUNK] \| section [ID_SERVICE] ethernet | show configuration service instance |
+| show running interface bridge-domain [ID_SERVICE] | show configuration interface bridge-domain |
+| show route table | show routing table |
+| show vlan | show vlan configuration |
+| show mac-address-table dynamic vlan [VLAN_ID] | show mac address in vlan |
+| show interface [PORT_TRUNK] | show interface port trunk |
+| show ip interface brief | show ip all interface |
+| show etherchannel summary | etherchannel summary |
+| show ip ospf interface | show ospf interface |
+| show ip ospf interface brief | show ospf all interface |
+| show ip ospf interface neighbor | show ospf neighbor connected |
+| show bridge-domain [VPLS_ID] | show bridge-domain vpls |
+| show bridge-domain [L2VPN_ID] | show bridge-domain l2vpn |
+| show mpls interface | show mpls interface |
+| show mpls ldp session | show ldp session |
+| show mpls ldp neighbor | show ldp neighbor connected |
+| show mpls l2transport vc [VPLS-ID] | show l2transport virtual connection vpls |
+| show mpls l2transport vc [L2VPN-ID] | show l2transport virtual connection l2 |
+| show vfi [VPLS-ID] | show vpls configuration |
+| show bgp summary | show bgp all connected |
+| show bgp vpnv4 unicast vrf [VRF_LABEL] | show vrf MP-BGP configuration |
+| telnet [IP_ADDRESS] | telnet access to router |
+| ssh [USERNAME]@[IP_ADDRESS] | ssh access to router |
+| ping [IP_GATEWAY] | ping point to point |
+| ping vrf [VRF_LABEL] [IP_NEIGHBOR] | ping vpn to destination |
+| traceroute vrf [VRF_LABEL] [IP_NEIGHBOR] | traceroute vpn to destination |
+| copy running startup-config | save configuration in startup router |
+| write | save configuration |
+
 
 ## Support
 
