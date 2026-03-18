@@ -11,6 +11,7 @@
 
 #### Information
 * [Overview IOS-XE](#overview-isoxe)
+* [Mode of IOS](#mode-of-ios)
 * [Basic Configuration](#basic-configuration)
 * [OSPF Routing Configuration](#ospf-routing-configuration)
 * [MPLS (Multi Protocol Labeling Switching)](#mpls-multi-protocol-labeling-switching)
@@ -22,117 +23,158 @@
 * [LACP (Link Aggregation Control Protocol)](#lacp-link-aggregation-control-protocol)
 * [Switch Configuration (IOS-L)](#switch-configuration-ios-l) - Bonus
 * [Command Refrences](#command-refrences)
-  
+
+## Mode of IOS
+#### 1. Privileged EXEC mode
+```
+Router>enable
+Router#
+```
+
+#### 2. Global Configuration Mode
+```
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#
+```
+
 ## Basic Configuration
 #### 1. Hostname
 ```
-hostname [HOSTNAME]
+Router(config)#hostname CISCO-IOS-XE
+CISCO-IOS-XE(config)#
 ```
 
 #### 2. Password Enable
 ```
-enable secret [PASSWORD]
+Router(config)#enable secret [PASSWORD]
+Router(config)#
 ```
 
 #### 3. Password Encryption
 ```
-service password-encryption
+Router(config)#service password-encryption
+Router(config)#
 ```
 
 #### 4. Username and Password
 ```
-username [USERNAME] privilege 15 secret [PASSWORD]
+Router(config)#username [USERNAME] privilege 15 secret [PASSWORD]
+Router(config)#
 ```
 
 #### 5. Privilege Login
 * 0 - 4
 ```
-line vty 0 4
-login local
-transport input telnet ssh
-transport output telnet ssh
+Router(config)#line vty 0 4
+Router(config-line)#login local
+Router(config-line)#transport input telnet ssh
+Router(config-line)#transport output telnet ssh
+Router(config-line)#
 ```
 
 * 5 - 15
 ```
-line vty 5 15
-transport input none
-transport output none
+Router(config)#line vty 5 15
+Router(config-line)#transport input none
+Router(config-line)#transport output none
+Router(config-line)#
 ```
 
 * Console
 ```
-line console
-login local
-transport input telnet ssh
-transport output telnet ssh
+Router(config)#line console 0
+Router(config-line)#login local
+Router(config-line)#transport input telnet ssh
+Router(config-line)#transport output telnet ssh
+Router(config-line)#
 ```
 
 #### 6. Time Clock
 ```
-clock timezone WIB 7 0
+Router#clock set 10:00:00 18 Mar 2026
+Router#
+Router#show clock 
+10:00:39.576 UTC Wed Mar 18 2026
+Router#
 ```
 
 #### 7. Spanning-Tree
 ```
-spanning-tree mode mst
-spanning-tree loopguard default
-spanning-tree logging
-spanning-tree extend system-id
-spanning-tree mst 0 priority 4096
+Router(config)#spanning-tree mode mst
+Router(config)#spanning-tree loopguard default
+Router(config)#spanning-tree logging
+Router(config)#spanning-tree extend system-id
+Router(config)#spanning-tree mst 0 priority 4096
+Router(config)#
 ```
 
 #### 8. FTP (File Transfer Protocol)
 ```
-ip ftp source-interface Loopback0
-ip ftp username [USERNAME]
-ip ftp password 7 [PASSWORD]
+Router(config)#ip ftp source-interface Loopback0
+Router(config)#ip ftp username [USERNAME]
+Router(config)#ip ftp password 7 [PASSWORD]
+Router(config)#
 ```
 
-#### 9. UDLD ((Unidirectional Link Detection)
+#### 9. CDP (Cisco Discovery Protocol)
 ```
-udld enable
-```
-
-#### 10. CDP (Cisco Discovery Protocol)
-```
-cdp run
-interface Gi1
-cdp enable
+Router(config)#cdp run
+Router(config)#interface Gi1
+Router(config-if)#cdp enable
+Router(config-if)#
 ```
 
-#### 11. SNMP (Simple Network Management Protocol)
+#### 10. SNMP (Simple Network Management Protocol)
 ```
-snmp-server community [SNMP-COMMUNITY]
-snmp-server trap-source Loopback0
-snmp-server location [SITE-ID]
-snmp-server contact [EMAIL@EMAIL.COM]
-snmp-server host [IP_SERVER_SNMP]
-```
-
-#### 12. NTP (Network Time Protocol0
-```
-ntp source Loopback0
-ntp server [IP_SERVER_NTP]
-ntp server [IP_SERVER_NTP]
+Router(config)#snmp-server community [SNMP-COMMUNITY]
+Router(config)#snmp-server trap-source Loopback0
+Router(config)#snmp-server location [SITE-ID]
+Router(config)#snmp-server contact [EMAIL@EMAIL.COM]
+Router(config)#snmp-server host [IP_SERVER_SNMP]
+Router(config)#
 ```
 
-#### 13. Save Configuration
+#### 11. NTP (Network Time Protocol0
+```
+Router(config)#ntp source Loopback0
+Router(config)#ntp server [IP_SERVER_NTP]
+Router(config)#ntp server [IP_SERVER_NTP]
+Router(config)#
+```
+
+#### 12. Save Configuration
 * Copy Running Configuration
 ```
-copy running startup-config
+Router#copy running-config startup-config
+Destination filename [startup-config]?       
+Building configuration...
+[OK]
+Router#
 ```
 
 * Save Configuration
 ```
-write
+Router#write
+Building configuration...
+[OK]
+Router#
 ```
 
-#### 14. Show Configuration
+#### 13. Show Configuration
 ```
-show running
+Router#show running-config 
+Building configuration...
+...
+Router#
 ```
 
+#### 14. UDLD ((Unidirectional Link Detection) - Case IOS-XE
+```
+Router#configure terminal
+Router(config)#udld enable
+Router(config)#
+```
 
 ## OSPF Routing Configuration
 #### 1. Single Area OSPF (Internal Router)
