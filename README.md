@@ -21,7 +21,7 @@
 * [I. MPLS L3VPN Configuration](#i-mpls-l3vpn-configuration)
 * [J. SVI (Switch Virtual Instance)](#j-svi-switch-virtual-instance)
 * [K. LACP (Link Aggregation Control Protocol)](#k-lacp-link-aggregation-control-protocol)
-* [L. Switch Configuration (IOS-L)](#l-switch-configuration-ios-l) - Bonus
+* [L. Switch Configuration (IOS)](#l-switch-configuration-ios) - Bonus
 * [M. Command Refrences](#m-command-refrences)
 
 ## B. Mode of Cisco-IOS
@@ -689,7 +689,7 @@ Router(config-if)#do show mac-address-table dynamic vlan [VLAN_ID]
 Router(config-if)#
 ```
 
-## L. Switch Configuration (IOS-L)
+## L. Switch Configuration (IOS)
 #### 1. Mode of Cisco-IOS
 * Privileged EXEC mode
 ```
