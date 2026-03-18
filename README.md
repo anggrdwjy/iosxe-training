@@ -690,101 +690,129 @@ Router(config-if)#
 ```
 
 ## L. Switch Configuration (IOS-L)
-#### 1. VLAN Configuration
+#### 1. Mode of Cisco-IOS
+* Privileged EXEC mode
+```
+Switch>enable
+Switch#
+```
+
+* Global Configuration Mode
+```
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#
+```
+
+#### 2. VLAN Configuration
 * VLAN
 ```
-vlan [VLAN_ID]
-vlan name [VLAN_NAME]
+Switch(config)#vlan [VLAN_ID]
+Switch(config-vlan)#vlan name [VLAN_NAME]
+Switch(config-vlan)#
 ```
 
 * Interface VLAN
 ```
-interface vlan [VLAN_ID]
-description [SERVICE_NAME]
-ip address [IP_ADDRESS] [NETMASK]
-no shutdown
+Switch(config)#interface vlan [VLAN_ID]
+Switch(config-if)#description [SERVICE_NAME]
+Switch(config-if)#ip address [IP_ADDRESS] [NETMASK]
+Switch(config-if)#no shutdown
+Switch(config-if)#
 ```
 
 * Verification
 ```
-show running interface [vlan]
-show vlan
+Switch(config-if)#do show running interface [vlan]
+Switch(config-if)#do show vlan
+Switch(config-if)#
 ```
 
-#### 2. Port Trunk
+#### 3. Port Trunk
 * Port Trunk
 ```
-interface GigabitEthernet [PORT_TRUNK]
-description Trunk to 11-CE
-switchport trunk allowed vlan 111,444,666
-switchport trunk encapsulation dot1q
-switchport mode trunk
+Switch(config)#interface GigabitEthernet [PORT_TRUNK]
+Switch(config-if)#description Trunk to 11-CE
+Switch(config-if)#switchport trunk allowed vlan 111,444,666
+Switch(config-if)#switchport trunk encapsulation dot1q
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#no shutdown
+Switch(config-if)#
 ```
 
 * Advanced Port Trunk
 ```
-interface GigabitEthernet [PORT_TRUNK]
-description Trunk to 11-CE
-switchport trunk allowed vlan 111,444,666
-switchport trunk encapsulation dot1q
-switchport mode trunk
-cdp enable
-mtu 1900
-load-interval 30
-negotiation auto
-udld port disable
-spanning-tree bpdufilter enable
-ip dhcp snooping trust -> Optional
+Switch(config)#interface GigabitEthernet [PORT_TRUNK]
+Switch(config-if)#description Trunk to 11-CE
+Switch(config-if)#switchport trunk allowed vlan 111,444,666
+Switch(config-if)#switchport trunk encapsulation dot1q
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#cdp enable
+Switch(config-if)#mtu 1900
+Switch(config-if)#load-interval 30
+Switch(config-if)#negotiation auto
+Switch(config-if)#udld port disable
+Switch(config-if)#spanning-tree bpdufilter enable
+Switch(config-if)#ip dhcp snooping trust -> Optional
+Switch(config-if)#no shutdown
+Switch(config-if)#
 ```
 
 * Verification
 ```
-show running interface [PORT]
-show vlan
-show mac-address-table dynamic vlan [VLAN_ID]
+Switch(config-if)#do show running interface [PORT]
+Switch(config-if)#do show vlan
+Switch(config-if)#do show mac-address-table dynamic vlan [VLAN_ID]
+Switch(config-if)#
 ```
 
-#### 3. Port Access
+#### 4. Port Access
 * Port Access
 ```
-interface GigabitEthernet [PORT_ACCESS]
-description Access to A-CPE
-switchport access vlan 444
-switchport mode access
+Switch(config)#interface GigabitEthernet [PORT_ACCESS]
+Switch(config-if)#description Access to A-CPE
+Switch(config-if)#switchport access vlan 444
+Switch(config-if)#switchport mode access
+Switch(config-if)#no shutdown
+Switch(config-if)#
 ```
 
 * Advanced Port Access
 ```
-interface GigabitEthernet [PORT_ACCESS]
-description Access to A-CPE
-switchport access vlan 444
-switchport mode access
-cdp enable
-mtu 1900
-load-interval 30
-negotiation auto
-udld port disable
-spanning-tree bpdufilter enable
-ip dhcp snooping trust -> Optional
+Switch(config)#interface GigabitEthernet [PORT_ACCESS]
+Switch(config-if)#description Access to A-CPE
+Switch(config-if)#switchport access vlan 444
+Switch(config-if)#switchport mode access
+Switch(config-if)#cdp enable
+Switch(config-if)#mtu 1900
+Switch(config-if)#load-interval 30
+Switch(config-if)#negotiation auto
+Switch(config-if)#udld port disable
+Switch(config-if)#spanning-tree bpdufilter enable
+Switch(config-if)#ip dhcp snooping trust -> Optional
+Switch(config-if)#no shutdown
+Switch(config-if)#
 ```
 
 * Verification
 ```
-show running interface [PORT]
-show vlan
-show mac-address-table dynamic vlan [VLAN_ID]
+Switch(config-if)#do show running interface [PORT]
+Switch(config-if)#do show vlan
+Switch(config-if)#do show mac-address-table dynamic vlan [VLAN_ID]
+Switch(config-if)#
 ```
 
 #### 4. Static Routing
 * Static Route
 ```
-router(config)# ip route 0.0.0.0 0.0.0.0 [GATEWAY]
-router(config)# ip route [NETWORK_NEIGHBOR] [PREFIX] [GATEWAY]
+Switch(config)#ip route 0.0.0.0 0.0.0.0 [GATEWAY]
+Switch(config)#ip route [NETWORK_NEIGHBOR] [PREFIX] [GATEWAY]
+Switch(config)#
 ```
 
 * Verification
 ```
-show route table
+Switch(config)#do show route table
 ```
 
 ## M. Command Refrences
