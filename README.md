@@ -4,7 +4,12 @@
 <img src="img/ciscoiosxed.png">
 </p>
 
-### Information
+#### Introduction 
+* Cisco IOS (Internetwork Operating System)
+* Cisco IOS XE is a modern, Linux-based network operating system for Cisco routers, switches, and wireless controllers
+* Combining the familiar Cisco IOS CLI with a Linux kernel
+
+#### Information
 * [Overview IOS-XE](#overview-isoxe)
 * [Basic Configuration](#basic-configuration)
 * [OSPF Routing Configuration](#ospf-routing-configuration)
