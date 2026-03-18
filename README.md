@@ -38,7 +38,7 @@ Enter configuration commands, one per line.  End with CNTL/Z.
 Router(config)#
 ```
 
-## Basic Configuration
+## C. Basic Configuration
 #### 1. Hostname
 ```
 Router(config)#hostname CISCO-IOS-XE
@@ -176,7 +176,7 @@ Router(config)#udld enable
 Router(config)#
 ```
 
-## C. OSPF Routing Configuration
+## D. OSPF Routing Configuration
 #### 1. Single Area OSPF (Internal Router)
 * Loopback Interface
 ```
@@ -253,7 +253,7 @@ Router(config-router)#no passive-interface GigabitEthernet2 <- Active Port
 Router(config-router)#
 ```
 
-## D. MPLS (Multi Protocol Labeling Switching)
+## E. MPLS (Multi Protocol Labeling Switching)
 #### 1. MPLS
 * MPLS in OSPF 
 ```
@@ -337,7 +337,7 @@ ip access-list standard ACL-MPLS-LDP
 mpls ldp advertise-labels for ACL-MPLS-LDP
 ```
 
-## E. MPLS L2VPN Configuration
+## F. MPLS L2VPN Configuration
 #### 1. Far End
 * Service Instance
 ```
@@ -376,7 +376,7 @@ show bridge-domain [L2VPN_ID]
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-## F. VPLS Configuration
+## G. VPLS Configuration
 #### 1. Far End
 * VPLS Configuration
 ```
@@ -433,7 +433,7 @@ show vfi [VPLS-ID]
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-## G. Interior-BGP Route Reflector
+## H. Interior-BGP Route Reflector
 #### 1. BGP Route Reflector (Master)
 * BGP RR Configuration
 ```
@@ -490,7 +490,7 @@ exit-address-family
 show bgp summary
 ```
 
-## H. MPLS L3VPN Configuration
+## I. MPLS L3VPN Configuration
 #### 1. Far End
 * VPN Instance
 ```
@@ -581,7 +581,7 @@ ping vrf [VRF_LABEL] [IP_NEIGHBOR]
 traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
 ```
 
-## I. SVI (Switch Virtual Instance)
+## J. SVI (Switch Virtual Instance)
 * Service Instance
 ```
 interface GigabitEthernet2
@@ -618,7 +618,7 @@ show mac-address-table dynamic vlan [ID]
 show bridge-domain [ID]
 ```
 
-## J. LACP (Link Aggregation Control Protocol)
+## K. LACP (Link Aggregation Control Protocol)
 * LACP Configuration
 ```
 interface Port-channel1
@@ -647,7 +647,7 @@ show etherchannel summary
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-## K. Switch Configuration (IOS-L)
+## L. Switch Configuration (IOS-L)
 #### 1. VLAN Configuration
 * VLAN
 ```
@@ -745,7 +745,7 @@ router(config)# ip route [NETWORK_NEIGHBOR] [PREFIX] [GATEWAY]
 show route table
 ```
 
-## K. Command Refrences
+## M. Command Refrences
 
 | Command | Description |
 | ---- | ----- |
