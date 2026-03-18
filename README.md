@@ -257,180 +257,200 @@ Router(config-router)#
 #### 1. MPLS
 * MPLS in OSPF 
 ```
-router ospf [OSPF-ID]
-router-id [IP_LOOPBACK]
-mpls ldp sync
-mpls traffic-eng router-id Loopback0
-mpls traffic-eng area 262
+Router(config)#router ospf [OSPF-ID]
+Router(config-router)#router-id [IP_LOOPBACK]
+Router(config-router)#mpls ldp sync
+Router(config-router)#mpls traffic-eng router-id Loopback0
+Router(config-router)#mpls traffic-eng area 262
+Router(config-router)#
 ```
 
 * MPLS in Port Interface
 ```
-interface [Port]
-mpls ip
-mpls label protocol ldp
-mpls traffic-eng tunnels
+Router(config)#interface Gi1
+Router(config-if)#mpls ip
+Router(config-if)#mpls label protocol ldp
+Router(config-if)#mpls traffic-eng tunnels
+Router(config-if)#
 ```
 
 * MPLS Configuration Advanced Example
 ```
-interface GigabitEthernet1
-no shutdown
-description [DESCRIPTION]
-mtu [1500-9200]
-load-interval 30
-negotiation auto
-cdp enable
-ip address  [IP_ADDRESS] [NETMASK]
-ip ospf authentication message-digest
-ip ospf message-digest-key 1 md5 [PASSWORD]
-ip ospf network point-to-point
-ip ospf dead-interval 15
-ip ospf hello-interval 5
-ip ospf mtu-ignore
-ip ospf cost [1-65000]
-mpls ip
-mpls label protocol ldp
-mpls traffic-eng tunnels
-ip rsvp bandwidth
+Router(config)#interface GigabitEthernet1
+Router(config-if)#no shutdown
+Router(config-if)#description [DESCRIPTION]
+Router(config-if)#mtu [1500-9200]
+Router(config-if)#load-interval 30
+Router(config-if)#negotiation auto
+Router(config-if)#cdp enable
+Router(config-if)#ip address  1.1.1.2 255.255.255.252
+Router(config-if)#ip ospf authentication message-digest
+Router(config-if)#ip ospf message-digest-key 1 md5 [PASSWORD]
+Router(config-if)#ip ospf network point-to-point
+Router(config-if)#ip ospf dead-interval 15
+Router(config-if)#ip ospf hello-interval 5
+Router(config-if)#ip ospf mtu-ignore
+Router(config-if)#ip ospf cost [1-65000]
+Router(config-if)#mpls ip
+Router(config-if)#mpls label protocol ldp
+Router(config-if)#mpls traffic-eng tunnels
+Router(config-if)#ip rsvp bandwidth
+Router(config-if)#
 ```
 
 * Verification
 ```
-show mpls interface
-show mpls ldp session
-show mpls ldp neighbor
+Router(config-if)#do show mpls interface
+Router(config-if)#do show mpls ldp session
+Router(config-if)#do show mpls ldp neighbor
+Router(config-if)#
 ```
 
 #### 2. MPLS LDP (Link Distribution Protocol)
 ```
-mpls label protocol ldp
-mpls ldp graceful-restart
-no mpls ldp advertise-labels
-no mpls ip propagate-ttl 
-mpls traffic-eng tunnels
-xconnect logging pseudowire status
-xconnect logging redundancy
-mpls ldp neighbor [IP_LOOPBACK_NEIGHBOR] password [PASSWORD]
-mpls ldp neighbor [IP_LOOPBACK_NEIGHBOR] password [PASSWORD]
+Router#configure terminal
+Router(config)#mpls label protocol ldp
+Router(config)#mpls ldp graceful-restart
+Router(config)#no mpls ldp advertise-labels
+Router(config)#no mpls ip propagate-ttl 
+Router(config)#mpls traffic-eng tunnels
+Router(config)#xconnect logging pseudowire status
+Router(config)#xconnect logging redundancy
+Router(config)#mpls ldp neighbor [IP_LOOPBACK_NEIGHBOR] password [PASSWORD]
+Router(config)#mpls ldp neighbor [IP_LOOPBACK_NEIGHBOR] password [PASSWORD]
+Router(config)#
 ```
 
 * Verification
 ```
-show mpls interface
-show mpls ldp session
-show mpls ldp neighbor
+Router(config)#do show mpls interface
+Router(config)#do show mpls ldp session
+Router(config)#do show mpls ldp neighbor
+Router(config)#
 ```
 
 #### 3. RSVP (Resource Reservation Protocol)
 ```
-interface [Port]
-ip rsvp bandwidth
+Router(config)#interface Gi1
+Router(config-if)#ip rsvp bandwidth
+Router(config-if)#
 ```
 
 #### 4. Access Control List LDP
 ```
-ip access-list standard ACL-MPLS-LDP
-10 permit [IP_HOST_ALLOW]
-20 permit [IP_HOST_ALLOW]
-30 permit [IP_HOST_ALLOW]
-mpls ldp advertise-labels for ACL-MPLS-LDP
+Router(config)#ip access-list standard ACL-MPLS-LDP
+Router(config-std-nacl)#10 permit [IP_HOST_ALLOW]
+Router(config-std-nacl)#20 permit [IP_HOST_ALLOW]
+Router(config-std-nacl)#30 permit [IP_HOST_ALLOW]
+Router(config-std-nacl)#exit
+Router(config)#mpls ldp advertise-labels for ACL-MPLS-LDP
+Router(config)#
 ```
 
 ## F. MPLS L2VPN Configuration
 #### 1. Far End
 * Service Instance
 ```
-interface GigabitEthernet2
-service instance 666 ethernet
-description MPLS_L2VPN
-encapsulation dot1q 666
-rewrite ingress tag pop 1 symmetric
-bridge-domain 666
-xconnect 11.11.11.11 666 encapsulation mpls
+Router(config)#interface GigabitEthernet2
+Router(config-if)#service instance 666 ethernet
+Router(config-if)#description MPLS_L2VPN
+Router(config-if)#encapsulation dot1q 666
+Router(config-if)#rewrite ingress tag pop 1 symmetric
+Router(config-if)#bridge-domain 666
+Router(config-if)#xconnect 11.11.11.11 666 encapsulation mpls
+Router(config-if)#
 ```
 
 * Verification
 ```
-show mpls l2transport vc [L2VPN-ID]
-show bridge-domain [L2VPN_ID]
-show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#do show mpls l2transport vc [L2VPN-ID]
+Router(config-if)#do show bridge-domain [L2VPN_ID]
+Router(config-if)#do show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#
 ```
 
 #### 2. Near End
 * Service Instance
 ```
-interface GigabitEthernet2
-service instance 666 ethernet
-description MPLS_L2VPN
-encapsulation dot1q 666
-rewrite ingress tag pop 1 symmetric
-bridge-domain 666
-xconnect 12.12.12.12 666 encapsulation mpls
+Router(config)#interface GigabitEthernet2
+Router(config-if)#service instance 666 ethernet
+Router(config-if)#description MPLS_L2VPN
+Router(config-if)#encapsulation dot1q 666
+Router(config-if)#rewrite ingress tag pop 1 symmetric
+Router(config-if)#bridge-domain 666
+Router(config-if)#xconnect 12.12.12.12 666 encapsulation mpls
+Router(config-if)#
 ```
 
 * Verification
 ```
-show mpls l2transport vc [L2VPN-ID]
-show bridge-domain [L2VPN_ID]
-show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#do show mpls l2transport vc [L2VPN-ID]
+Router(config-if)#do show bridge-domain [L2VPN_ID]
+Router(config-if)#do show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#
 ```
 
 ## G. VPLS Configuration
 #### 1. Far End
 * VPLS Configuration
 ```
-l2 vfi VFI-444 manual
-vpn id 444
-bridge-domain 444
-mtu 1900
-neighbor 21.21.21.21 encapsulation mpls
+Router(config)#l2 vfi VFI-444 manual
+Router(config-vfi)#vpn id 444
+Router(config-vfi)#bridge-domain 444
+Router(config-vfi)#mtu 1900
+Router(config-vfi)#neighbor 21.21.21.21 encapsulation mpls
+Router(config-vfi)#
 ```
 
 * Service Instance
 ```
-interface GigabitEthernet2
-service instance 444 ethernet
-description VPLS_SERVICE
-encapsulation dot1q 444
-rewrite ingress tag pop 1 symmetric
-bridge-domain 444
+Router(config)#interface GigabitEthernet2
+Router(config-if)#service instance 444 ethernet
+Router(config-if)#description VPLS_SERVICE
+Router(config-if)#encapsulation dot1q 444
+Router(config-if)#rewrite ingress tag pop 1 symmetric
+Router(config-if)#bridge-domain 444
+Router(config-if)#
 ```
 
 * Verification
 ```
-show mpls l2transport vc [VPLS-ID]
-show bridge-domain [VPLS_ID]
-show vfi [VPLS-ID]
-show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#do show mpls l2transport vc [VPLS-ID]
+Router(config-if)#do show bridge-domain [VPLS_ID]
+Router(config-if)#do show vfi [VPLS-ID]
+Router(config-if)#do show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#
 ```
 
 #### 2. Near End
 * VPLS Configuration
 ```
-l2 vfi VFI-444 manual
-vpn id 444
-bridge-domain 444
-mtu 1900
-neighbor 12.12.12.12 encapsulation mpls
+Router(config)#l2 vfi VFI-444 manual
+Router(config-vfi)#vpn id 444
+Router(config-vfi)#bridge-domain 444
+Router(config-vfi)#mtu 1900
+Router(config-vfi)#neighbor 12.12.12.12 encapsulation mpls
+Router(config-vfi)#
 ```
 
 * Service Instance
 ```
-interface GigabitEthernet2
-service instance 444 ethernet
-description VPLS_SERVICE
-encapsulation dot1q 444
-rewrite ingress tag pop 1 symmetric
-bridge-domain 444
+Router(config)#interface GigabitEthernet2
+Router(config-if)#service instance 444 ethernet
+Router(config-if)#description VPLS_SERVICE
+Router(config-if)#encapsulation dot1q 444
+Router(config-if)#rewrite ingress tag pop 1 symmetric
+Router(config-if)#bridge-domain 444
+Router(config-if)#
 ```
 
 * Verification
 ```
-show mpls l2transport vc [VPLS-ID]
-show bridge-domain [VPLS_ID]
-show vfi [VPLS-ID]
-show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#do show mpls l2transport vc [VPLS-ID]
+Router(config-if)#do show bridge-domain [VPLS_ID]
+Router(config-if)#do show vfi [VPLS-ID]
+Router(config-if)#do show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#
 ```
 
 ## H. Interior-BGP Route Reflector
