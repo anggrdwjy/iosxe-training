@@ -516,128 +516,141 @@ Router(config-router-af)#do show bgp summary
 #### 1. Far End
 * VPN Instance
 ```
-ip vrf WAN-111
-rd 65000:10100
-route-target export 65000:10100
-route-target import 65000:10100
+Router(config)#ip vrf WAN-111
+Router(config-vrf)#rd 65000:10100
+Router(config-vrf)#route-target export 65000:10100
+Router(config-vrf)#route-target import 65000:10100
+Router(config-vrf)#
 ```
 
 * Multi Protocol - BGP Configuration
 ```
-router bgp 65000
-address-family ipv4 vrf WAN-111
-redistribute connected
-redistribute static
-exit-address-family
+Router(config)#router bgp 65000
+Router(config-router)#address-family ipv4 vrf WAN-111
+Router(config-router-af)#redistribute connected
+Router(config-router-af)#redistribute static
+Router(config-router-af)#exit-address-family
+Router(config-router-af)#
 ```
 
 * Bridge Domain Interface
 ```
-interface BDI111
-description WAN-111
-ip vrf forwarding WAN-111
-ip address 10.200.0.1 255.255.255.252
-ip address 10.200.1.1 255.255.255.252 secondary
-no shutdown
+Router(config)#interface BDI111
+Router(config-if)#description WAN-111
+Router(config-if)#ip vrf forwarding WAN-111
+Router(config-if)#ip address 10.200.0.1 255.255.255.252
+Router(config-if)#ip address 10.200.1.1 255.255.255.252 secondary
+Router(config-if)#no shutdown
+Router(config-if)#
 ```
 
 * Service Instance
 ```
-interface GigabitEthernet2
-service instance 111 ethernet
-description MPLS_L3VPN
-encapsulation dot1q 111
-rewrite ingress tag pop 1 symmetric
-bridge-domain 111
+Router(config)#interface GigabitEthernet2
+Router(config-if)#service instance 111 ethernet
+Router(config-if)#description MPLS_L3VPN
+Router(config-if)#encapsulation dot1q 111
+Router(config-if)#rewrite ingress tag pop 1 symmetric
+Router(config-if)#bridge-domain 111
+Router(config-if)#
 ```
 
 * Verification
 ```
-show bgp vpnv4 unicast vrf [VRF_LABEL]
-ping vrf [VRF_LABEL] [IP_NEIGHBOR]
-traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
+Router(config-if)#do show bgp vpnv4 unicast vrf [VRF_LABEL]
+Router(config-if)#do ping vrf [VRF_LABEL] [IP_NEIGHBOR]
+Router(config-if)#do traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
+Router(config-if)#
 ```
 
 #### 2. Near End
 * VPN Instance
 ```
-ip vrf WAN-111
-rd 65000:10100
-route-target export 65000:10100
-route-target import 65000:10100
+Router(config)#ip vrf WAN-111
+Router(config-vrf)#rd 65000:10100
+Router(config-vrf)#route-target export 65000:10100
+Router(config-vrf)#route-target import 65000:10100
+Router(config-vrf)#
 ```
 
 * Multi Protocol - BGP Configuration
 ```
-router bgp 65000
-address-family ipv4 vrf WAN-111
-redistribute connected
-redistribute static
-exit-address-family
+Router(config)#router bgp 65000
+Router(config-router)#address-family ipv4 vrf WAN-111
+Router(config-router-af)#redistribute connected
+Router(config-router-af)#redistribute static
+Router(config-router-af)#exit-address-family
+Router(config-router-af)#
 ```
 
 * Bridge Domain Interface
 ```
-interface BDI111
-description WAN-111
-ip vrf forwarding WAN-111
-ip address 10.100.0.1 255.255.255.252
-ip address 10.100.1.1 255.255.255.252 secondary
-no shutdown
+Router(config)#interface BDI111
+Router(config-if)#description WAN-111
+Router(config-if)#ip vrf forwarding WAN-111
+Router(config-if)#ip address 10.100.0.1 255.255.255.252
+Router(config-if)#ip address 10.100.1.1 255.255.255.252 secondary
+Router(config-if)#no shutdown
+Router(config-if)#
 ```
 
 * Service Instance
 ```
-interface GigabitEthernet2
-service instance 111 ethernet
-description MPLS_L3VPN
-encapsulation dot1q 111
-rewrite ingress tag pop 1 symmetric
-bridge-domain 111
+Router(config)#interface GigabitEthernet2
+Router(config-if)#service instance 111 ethernet
+Router(config-if)#description MPLS_L3VPN
+Router(config-if)#encapsulation dot1q 111
+Router(config-if)#rewrite ingress tag pop 1 symmetric
+Router(config-if)#bridge-domain 111
+Router(config-if)#
 ```
 
 * Verification
 ```
-show bgp vpnv4 unicast vrf [VRF_LABEL]
-ping vrf [VRF_LABEL] [IP_NEIGHBOR]
-traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
+Router(config-if)#do show bgp vpnv4 unicast vrf [VRF_LABEL]
+Router(config-if)#do ping vrf [VRF_LABEL] [IP_NEIGHBOR]
+Router(config-if)#do traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
+Router(config-if)#
 ```
 
 ## J. SVI (Switch Virtual Instance)
 * Service Instance
 ```
-interface GigabitEthernet2
-no shutdown
-description Trunk to Service
-mtu 1900
-no ip address
-load-interval 30
-negotiation auto
-spanning-tree bpdufilter enable
-service instance 111 ethernet
-description MPLS_L3VPN
-encapsulation dot1q 111
-rewrite ingress tag pop 1 symmetric
-bridge-domain 111
+Router(config)#interface GigabitEthernet2
+Router(config-if)#no shutdown
+Router(config-if)#description Trunk to Service
+Router(config-if)#mtu 1900
+Router(config-if)#no ip address
+Router(config-if)#load-interval 30
+Router(config-if)#negotiation auto
+Router(config-if)#spanning-tree bpdufilter enable
+Router(config-if)#service instance 111 ethernet
+Router(config-if)#description MPLS_L3VPN
+Router(config-if)#encapsulation dot1q 111
+Router(config-if)#rewrite ingress tag pop 1 symmetric
+Router(config-if)#bridge-domain 111
+Router(config-if)#
 ```
 
 * VLAN Dot1.Q
 ```
-interface GigabitEthernet2.111
-description Trunk to Service
-mtu 1900
-no ip address
-load-interval 30
-negotiation auto
-spanning-tree bpdufilter enable
-xconnect 11.11.11.11 666 encapsulation mpls
+Router(config)#interface GigabitEthernet2.111
+Router(config-if)#description Trunk to Service
+Router(config-if)#mtu 1900
+Router(config-if)#no ip address
+Router(config-if)#load-interval 30
+Router(config-if)#negotiation auto
+Router(config-if)#spanning-tree bpdufilter enable
+Router(config-if)#xconnect 11.11.11.11 666 encapsulation mpls
+Router(config-if)#
 ```
 
 * Verfication
 ```
-show running interface [PORT]
-show mac-address-table dynamic vlan [ID]
-show bridge-domain [ID]
+Router(config-if)#do show running interface [PORT]
+Router(config-if)#do show mac-address-table dynamic vlan [ID]
+Router(config-if)#do show bridge-domain [ID]
+Router(config-if)#
 ```
 
 ## K. LACP (Link Aggregation Control Protocol)
