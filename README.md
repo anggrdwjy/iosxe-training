@@ -1,4 +1,4 @@
-## Overview IOS-XE
+## A. Overview IOS-XE
 
 <p align="center">
 <img src="img/ciscoiosxed.png">
@@ -10,21 +10,21 @@
 * Combining the familiar Cisco IOS CLI with a Linux kernel
 
 #### Information
-* [Overview IOS-XE](#overview-isoxe)
-* [Mode of IOS](#mode-of-ios)
-* [Basic Configuration](#basic-configuration)
-* [OSPF Routing Configuration](#ospf-routing-configuration)
-* [MPLS (Multi Protocol Labeling Switching)](#mpls-multi-protocol-labeling-switching)
-* [MPLS L2VPN Configuration](#mpls-l2vpn-configuration)
-* [VPLS Configuration](#vpls-configuration)
-* [Interior-BGP Route Reflector](#interior-bgp-route-reflector)
-* [MPLS L3VPN Configuration](#mpls-l3vpn-configuration)
-* [SVI (Switch Virtual Instance)](#svi-switch-virtual-instance)
-* [LACP (Link Aggregation Control Protocol)](#lacp-link-aggregation-control-protocol)
-* [Switch Configuration (IOS-L)](#switch-configuration-ios-l) - Bonus
-* [Command Refrences](#command-refrences)
+* [A. Overview IOS-XE](#a-overview-isoxe)
+* [B. Mode of IOS](#b-mode-of-ios)
+* [C. Basic Configuration](#c-basic-configuration)
+* [D. OSPF Routing Configuration](#d-ospf-routing-configuration)
+* [E. MPLS (Multi Protocol Labeling Switching)](#e-mpls-multi-protocol-labeling-switching)
+* [F. MPLS L2VPN Configuration](#f-mpls-l2vpn-configuration)
+* [G. VPLS Configuration](#g-vpls-configuration)
+* [H. Interior-BGP Route Reflector](#h-interior-bgp-route-reflector)
+* [I. MPLS L3VPN Configuration](#i-mpls-l3vpn-configuration)
+* [J. SVI (Switch Virtual Instance)](#j-svi-switch-virtual-instance)
+* [K. LACP (Link Aggregation Control Protocol)](#k-lacp-link-aggregation-control-protocol)
+* [L. Switch Configuration (IOS-L)](#l-switch-configuration-ios-l) - Bonus
+* [M. Command Refrences](#m-command-refrences)
 
-## Mode of IOS
+## B. Mode of Cisco-IOS
 #### 1. Privileged EXEC mode
 ```
 Router>enable
@@ -176,7 +176,7 @@ Router(config)#udld enable
 Router(config)#
 ```
 
-## OSPF Routing Configuration
+## C. OSPF Routing Configuration
 #### 1. Single Area OSPF (Internal Router)
 * Loopback Interface
 ```
@@ -253,7 +253,7 @@ Router(config-router)#no passive-interface GigabitEthernet2 <- Active Port
 Router(config-router)#
 ```
 
-## MPLS (Multi Protocol Labeling Switching)
+## D. MPLS (Multi Protocol Labeling Switching)
 #### 1. MPLS
 * MPLS in OSPF 
 ```
@@ -337,7 +337,7 @@ ip access-list standard ACL-MPLS-LDP
 mpls ldp advertise-labels for ACL-MPLS-LDP
 ```
 
-## MPLS L2VPN Configuration
+## E. MPLS L2VPN Configuration
 #### 1. Far End
 * Service Instance
 ```
@@ -376,7 +376,7 @@ show bridge-domain [L2VPN_ID]
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-## VPLS Configuration
+## F. VPLS Configuration
 #### 1. Far End
 * VPLS Configuration
 ```
@@ -433,7 +433,7 @@ show vfi [VPLS-ID]
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-## Interior-BGP Route Reflector
+## G. Interior-BGP Route Reflector
 #### 1. BGP Route Reflector (Master)
 * BGP RR Configuration
 ```
@@ -490,7 +490,7 @@ exit-address-family
 show bgp summary
 ```
 
-## MPLS L3VPN Configuration
+## H. MPLS L3VPN Configuration
 #### 1. Far End
 * VPN Instance
 ```
@@ -581,7 +581,7 @@ ping vrf [VRF_LABEL] [IP_NEIGHBOR]
 traceroute vrf [VRF_LABEL] [IP_NEIGHBOR]
 ```
 
-## SVI (Switch Virtual Instance)
+## I. SVI (Switch Virtual Instance)
 * Service Instance
 ```
 interface GigabitEthernet2
@@ -618,7 +618,7 @@ show mac-address-table dynamic vlan [ID]
 show bridge-domain [ID]
 ```
 
-## LACP (Link Aggregation Control Protocol)
+## J. LACP (Link Aggregation Control Protocol)
 * LACP Configuration
 ```
 interface Port-channel1
@@ -647,7 +647,7 @@ show etherchannel summary
 show mac-address-table dynamic vlan [VLAN_ID]
 ```
 
-## Switch Configuration (IOS-L)
+## K. Switch Configuration (IOS-L)
 #### 1. VLAN Configuration
 * VLAN
 ```
@@ -745,7 +745,7 @@ router(config)# ip route [NETWORK_NEIGHBOR] [PREFIX] [GATEWAY]
 show route table
 ```
 
-## Command Refrences
+## K. Command Refrences
 
 | Command | Description |
 | ---- | ----- |
