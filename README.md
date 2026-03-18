@@ -1,7 +1,7 @@
 ## Overview IOS-XE
 
 <p align="center">
-<img src="img/iosxed.png">
+<img src="img/ciscoiosxed.png">
 </p>
 
 ### Information
