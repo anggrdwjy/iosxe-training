@@ -180,70 +180,77 @@ Router(config)#
 #### 1. Single Area OSPF (Internal Router)
 * Loopback Interface
 ```
-interface Loopback0
-ip address [IP_ADDRESS] [NETMASK]
-ip ospf network point-to-point
+Router(config)#interface Loopback0
+Router(config-if)#ip address [IP_ADDRESS] [NETMASK]
+Router(config-if)#ip ospf network point-to-point
+Router(config-if)#
 ```
 
 * Interface
 ```
-interface GigabitEthernet1
-no shutdown
-description [DESCRIPTION]
-mtu [1500-9200]
-load-interval 30
-negotiation auto
-cdp enable
-ip address  [IP_ADDRESS] [NETMASK]
-ip ospf authentication message-digest
-ip ospf message-digest-key 1 md5 [PASSWORD]
-ip ospf network point-to-point
-ip ospf dead-interval 15
-ip ospf hello-interval 5
-ip ospf mtu-ignore
-ip ospf cost [1-65000]
+Router(config)#interface GigabitEthernet1
+Router(config-if)#no shutdown
+Router(config-if)#description [DESCRIPTION]
+Router(config-if)#mtu [1500-9200]
+Router(config-if)#load-interval 30
+Router(config-if)#negotiation auto
+Router(config-if)#cdp enable
+Router(config-if)#ip address  [IP_ADDRESS] [NETMASK]
+Router(config-if)#ip ospf authentication message-digest
+Router(config-if)#ip ospf message-digest-key 1 md5 [PASSWORD]
+Router(config-if)#ip ospf network point-to-point
+Router(config-if)#ip ospf dead-interval 15
+Router(config-if)#ip ospf hello-interval 5
+Router(config-if)#ip ospf mtu-ignore
+Router(config-if)#ip ospf cost [1-65000]
+Router(config-if)#
 ```
 
 * Single Area Configuration
 ```
-router ospf [OSPF-ID]
-router-id [IP_LOOPBACK]
-network [IP_LOOPBACK] 0.0.0.0 area [OSPF_AREA]
-network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA]
+Router(config)#router ospf [OSPF-ID]
+Router(config-router)#router-id [IP_LOOPBACK]
+Router(config-router)#network [IP_LOOPBACK] 0.0.0.0 area [OSPF_AREA]
+Router(config-router)#network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA]
+Router(config-router)#
 ```
 
 * Verification
 ```
-show ip ospf interface
-show ip ospf interface brief
-show ip ospf interface neighbor 
+Router(config-router)#do show ip ospf interface
+Router(config-router)#do show ip ospf interface brief
+Router(config-router)#do show ip ospf interface neighbor
+Router(config-router)#
 ```
 
 #### 2. Multi Area OSPF (Area Border Router)
 * Multi Area Configuration
 ```
-router ospf [OSPF-ID]
-router-id [IP_LOOPBACK]
-network [IP_LOOPBACK] 0.0.0.0 area [OSPF_AREA_A]
-network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_A]
-network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_B]
-network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_C]
+Router(config)#router ospf [OSPF-ID]
+Router(config-router)#router-id [IP_LOOPBACK]
+Router(config-router)#network [IP_LOOPBACK] 0.0.0.0 area [OSPF_AREA_A]
+Router(config-router)#network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_A]
+Router(config-router)#network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_B]
+Router(config-router)#network [IP_POINT_TO_POINT] 0.0.0.0 area [OSPF_AREA_C]
+Router(config-router)#
 ```
 
 * Verification
 ```
-show ip ospf interface
-show ip ospf interface brief
-show ip ospf interface neighbor 
+Router(config-router)#do show ip ospf interface
+Router(config-router)#do show ip ospf interface brief
+Router(config-router)#do show ip ospf interface neighbor
+Router(config-router)#
 ```
 
 #### 3. OSPF Advance Configuration
 ```
-router ospf [OSPF-ID]
-nsf cisco
-passive-interface default <- Passive Port
-no passive-interface GigabitEthernet1 <- Active Port
-no passive-interface GigabitEthernet2 <- Active Port
+Router(config)#router ospf [OSPF-ID]
+Router(config-router)#nsf cisco
+Router(config-router)#passive-interface default <- Passive Port
+Router(config-router)#no passive-interface GigabitEthernet1 <- Active Port
+Router(config-router)#no passive-interface GigabitEthernet2 <- Active Port
+Router(config-router)#
 ```
 
 ## MPLS (Multi Protocol Labeling Switching)
