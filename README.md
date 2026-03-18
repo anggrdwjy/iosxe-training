@@ -457,57 +457,59 @@ Router(config-if)#
 #### 1. BGP Route Reflector (Master)
 * BGP RR Configuration
 ```
-router bgp [AS_NUMBER]
-bgp router-id [IP_LOOPBACK_RR]
-bgp log-neighbor-changes
-bgp graceful-restart
-no bgp default ipv4-unicast
-neighbor RR-CLIENT peer-group
-neighbor RR-CLIENT remote-as [AS_NUMBER]
-neighbor RR-CLIENT password [PASSWORD]
-neighbor RR-CLIENT update-source Loopback0
-neighbor [IP_RR_CLIENT_A] peer-group RR-CLIENT
-neighbor [IP_RR_CLIENT_B] peer-group RR-CLIENT
-neighbor [IP_RR_CLIENT_B] peer-group RR-CLIENT
-!
-address-family vpnv4
-bgp slow-peer detection
-neighbor RR-CLIENT send-community both
-neighbor RR-CLIENT route-reflector-client
-neighbor RR-CLIENT slow-peer split-update-group dynamic
-neighbor [IP_RR_CLIENT_A] activate
-neighbor [IP_RR_CLIENT_B] activate
-neighbor [IP_RR_CLIENT_C] activate
-exit-address-family
+Router(config)#router bgp 65000
+Router(config-router)#bgp router-id [IP_LOOPBACK_RR]
+Router(config-router)#bgp log-neighbor-changes
+Router(config-router)#bgp graceful-restart
+Router(config-router)#no bgp default ipv4-unicast
+Router(config-router)#neighbor RR-CLIENT peer-group
+Router(config-router)#neighbor RR-CLIENT remote-as [AS_NUMBER]
+Router(config-router)#neighbor RR-CLIENT password [PASSWORD]
+Router(config-router)#neighbor RR-CLIENT update-source Loopback0
+Router(config-router)#neighbor [IP_RR_CLIENT_A] peer-group RR-CLIENT
+Router(config-router)#neighbor [IP_RR_CLIENT_B] peer-group RR-CLIENT
+Router(config-router)#neighbor [IP_RR_CLIENT_B] peer-group RR-CLIENT
+Router(config-router)#
+Router(config-router)#address-family vpnv4
+Router(config-router-af)#bgp slow-peer detection
+Router(config-router-af)#neighbor RR-CLIENT send-community both
+Router(config-router-af)#neighbor RR-CLIENT route-reflector-client
+Router(config-router-af)#neighbor RR-CLIENT slow-peer split-update-group dynamic
+Router(config-router-af)#neighbor [IP_RR_CLIENT_A] activate
+Router(config-router-af)#neighbor [IP_RR_CLIENT_B] activate
+Router(config-router-af)#neighbor [IP_RR_CLIENT_C] activate
+Router(config-router-af)#exit-address-family
+Router(config-router-af)#
 ```
 
 * Verification
 ```
-show bgp summary
+Router(config-router-af)#do show bgp summary
 ```
 
 #### 2. BGP Router Client
 * BGP Router Client
 ```
-router bgp [AS_NUMBER]
-bgp router-id [IP_LOOPBACK]
-bgp log-neighbor-changes
-bgp graceful-restart
-no bgp default ipv4-unicast
-neighbor [IP_ROUTE_REFLECTOR] remote-as [AS_NUMBER]
-neighbor [IP_ROUTE_REFLECTOR] description [TO_ROUTE_REFLECTOR]
-neighbor [IP_ROUTE_REFLECTOR] password [PASSWORD]
-neighbor [IP_ROUTE_REFLECTOR] update-source Loopback0
-!
-address-family vpnv4
-neighbor [IP_ROUTE_REFLECTOR] activate
-neighbor [IP_ROUTE_REFLECTOR] send-community both
-exit-address-family
+Router(config)#router bgp 65000
+Router(config-router)#bgp router-id [IP_LOOPBACK]
+Router(config-router)#bgp log-neighbor-changes
+Router(config-router)#bgp graceful-restart
+Router(config-router)#no bgp default ipv4-unicast
+Router(config-router)#neighbor [IP_ROUTE_REFLECTOR] remote-as [AS_NUMBER]
+Router(config-router)#neighbor [IP_ROUTE_REFLECTOR] description [TO_ROUTE_REFLECTOR]
+Router(config-router)#neighbor [IP_ROUTE_REFLECTOR] password [PASSWORD]
+Router(config-router)#neighbor [IP_ROUTE_REFLECTOR] update-source Loopback0
+Router(config-router)#
+Router(config-router)#address-family vpnv4
+Router(config-router-af)#neighbor [IP_ROUTE_REFLECTOR] activate
+Router(config-router-af)#neighbor [IP_ROUTE_REFLECTOR] send-community both
+Router(config-router-af)#exit-address-family
+Router(config-router-af)#
 ```
 
 * Verification
 ```
-show bgp summary
+Router(config-router-af)#do show bgp summary
 ```
 
 ## I. MPLS L3VPN Configuration
