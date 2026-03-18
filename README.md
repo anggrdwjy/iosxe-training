@@ -11,7 +11,7 @@
 
 #### Information
 * [A. Overview IOS-XE](#a-overview-isoxe)
-* [B. Mode of IOS](#b-mode-of-ios)
+* [B. Mode of Cisco-IOS](#b-mode-of-cisco-ios)
 * [C. Basic Configuration](#c-basic-configuration)
 * [D. OSPF Routing Configuration](#d-ospf-routing-configuration)
 * [E. MPLS (Multi Protocol Labeling Switching)](#e-mpls-multi-protocol-labeling-switching)
