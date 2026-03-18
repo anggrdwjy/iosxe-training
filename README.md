@@ -656,30 +656,37 @@ Router(config-if)#
 ## K. LACP (Link Aggregation Control Protocol)
 * LACP Configuration
 ```
-interface Port-channel1
-ip address 192.168.1.1 255.255.255.0
+Router(config)#interface Port-channel1
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no shutdown
+Router(config-if)#
 ```
 
 * Port Interface
 ```
-interface GigabitEthernet0/1
-switchport
-switchport mode trunk
-channel-group 1 mode active
+Router(config)#interface GigabitEthernet0/1
+Router(config-if)#switchport
+Router(config-if)#switchport mode trunk
+Router(config-if)#channel-group 1 mode active
+Router(config-if)#no shutdown
+Router(config-if)#
 ```
 ```
-interface GigabitEthernet0/2
-switchport
-switchport mode trunk
-channel-group 1 mode active
+Router(config)#interface GigabitEthernet0/2
+Router(config-if)#switchport
+Router(config-if)#switchport mode trunk
+Router(config-if)#channel-group 1 mode active
+Router(config-if)#no shutdown
+Router(config-if)#
 ```
 
 * Verification
 ```
-show running interface [PORT]
-show running interface [Port-Channel]
-show etherchannel summary
-show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#do show running interface [PORT]
+Router(config-if)#do show running interface [Port-Channel]
+Router(config-if)#do show etherchannel summary
+Router(config-if)#do show mac-address-table dynamic vlan [VLAN_ID]
+Router(config-if)#
 ```
 
 ## L. Switch Configuration (IOS-L)
